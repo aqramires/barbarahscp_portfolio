@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Lab | Bárbara Helen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .lab-wrapper {
+            max-width: 1200px; margin: 80px auto 20px auto; padding: 20px;
+            display: flex; flex-direction: column; gap: 25px;
+        }
+        .iframe-container {
+            width: 100%; height: 500px; background: rgba(0,0,0,0.15);
+            border: 2px dashed var(--glass-border); border-radius: 15px;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            color: var(--text-muted); transition: 0.3s; margin-top: 15px;
+        }
+        .iframe-container:hover { border-color: var(--neon); background: rgba(188, 111, 241, 0.05); }
+        .lab-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        @media (min-width: 900px) { .lab-grid { grid-template-columns: 1fr 1fr; } }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 1rem;
+            margin-bottom: -10px; transition: color 0.3s;
+        }
+        .back-btn:hover { color: var(--neon); }
+    </style>
+</head>
+<body>
+
+<div class="top-controls">
+    <button id="theme-toggle" class="control-btn" title="Mudar para modo claro"><i class="fas fa-sun"></i></button>
+</div>
+
+<div class="lab-wrapper">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar ao Perfil</a>
+
+    <div class="card" style="text-align: center;">
+        <h1 style="color: var(--neon); font-size: 2.2rem;"><i class="fas fa-flask"></i> Intelligence Lab</h1>
+        <p style="color: var(--text-muted); margin-top: 10px; font-size: 1.05rem;">
+            Ambiente interativo para visualização de dashboards de Social Listening, Insights e Benchmarks de mercado.
+        </p>
+    </div>
+
+    <div class="lab-grid">
+        <div class="card">
+            <h2 style="margin-bottom: 5px; font-size: 1.3rem;"><i class="fas fa-braille"></i> Social Listening Overview</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Monitoramento de menções e análise de sentimento em tempo real.</p>
+            <div class="iframe-container">
+                <i class="fas fa-code" style="font-size: 3rem; color: var(--neon); margin-bottom: 15px;"></i>
+                <p>[ iFrame Placeholder ]</p>
+                <small style="margin-top: 5px;">Substitua pelo código embed do Buzzmonitor.</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 5px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> Relatório de Benchmark</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Análise competitiva de share of voice e engajamento.</p>
+            <div class="iframe-container">
+                <i class="fas fa-database" style="font-size: 3rem; color: var(--neon); margin-bottom: 15px;"></i>
+                <p>[ iFrame Placeholder ]</p>
+                <small style="margin-top: 5px;">Substitua pelo código embed do Looker Studio.</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sticky-bar" class="sticky-bar">
+    <button id="toggle-bar-btn" class="toggle-bar-btn" title="Minimizar barra">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="bar-content">
+        <a href="https://www.linkedin.com/in/b%C3%A1rbara-helen-pereira-603aa3199/" target="_blank" class="bar-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:barbarahscp@gmail.com" class="bar-icon" title="E-mail"><i class="fas fa-envelope"></i></a>
+        <a href="tel:11941544590" class="bar-icon" title="Telefone"><i class="fas fa-phone"></i></a>
+        <a href="cv-barbara.pdf" download class="bar-btn-cv" title="Download CV"><i class="fas fa-file-download"></i> CV</a>
+    </div>
+</div>
+
+<script src="actions.js"></script>
+</body>
+</html>
