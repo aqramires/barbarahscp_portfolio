@@ -3,6 +3,9 @@ const fs = require('fs');
 try {
     let html = fs.readFileSync('index.html', 'utf8');
 
+    // Normalize line endings to avoid mismatch between Windows (CRLF) and JS/AI (LF)
+    html = html.replace(/\r\n/g, '\n');
+
     const labBlock = `        <div class="card" style="text-align: center; border-color: var(--neon); background: rgba(188, 111, 241, 0.05);">
             <h2 style="justify-content: center;"><i class="fas fa-flask"></i> Intelligence Lab</h2>
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
