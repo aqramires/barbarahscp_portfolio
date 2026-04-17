@@ -1,6 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Lógica Dark / Light Mode
+    // 1. Barra de Progresso de Leitura (Scroll)
+    window.onscroll = () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressBar = document.getElementById("scroll-progress-bar");
+        if(progressBar) {
+            progressBar.style.width = scrolled + "%";
+        }
+    };
+
+ // 2. Extração de Entidades (Highlights por Categoria)
+    const sentimentBtn = document.getElementById('sentiment-analysis-btn');
+    const profileText = document.getElementById('profile-text');
+    const nlpLegend = document.getElementById('nlp-legend');
+    
+    if (sentimentBtn && profileText) {
+        let isNlpActive = false;
+        const originalContent = profileText.innerHTML;
+
+        // Mapeamento das categorias, classes CSS e os termos exatos
+        const categories = [
+            {
+                class: 'hl-strategy',
+                terms: ["Customer Experience \\(CX\\)", "Social Listening", "decisões Data-Driven"]
+            },
+            {
+                class: 'hl-tool',
+                terms: ["Buzzmonitor", "Looker Studio"]
+            },
+            {
+                class: 'hl-result',
+                terms: ["dados não estruturados", "KPIs acionáveis", "otimização da jornada do cliente"]
+            }
+        ];
+
+        sentimentBtn.addEventListener('click', () => {
+            isNlpActive = !isNlpActive;
+            
+            if (isNlpActive) {
+                // Estado ATIVO
+                sentimentBtn.classList.add('active');
+                sentimentBtn.innerHTML = '<i class="fas fa-check"></i> Dados Extraídos';
+                if (nlpLegend) nlpLegend.style.display = 'flex';
+                
+                let newText = originalContent;
+                categories.forEach(category => {
+                    category.terms.forEach(term => {
+                        // Regex dinâmico para substituir mantendo maiúsculas e minúsculas originais
+                        const regex = new RegExp(`(${term})`, 'gi');
+                        newText = newText.replace(regex, `<span class="${category.class}">$1</span>`);
+                    });
+                });
+                profileText.innerHTML = newText;
+            } else {
+                // Estado INATIVO (Retorna ao original)
+                sentimentBtn.classList.remove('active');
+                sentimentBtn.innerHTML = '<i class="fas fa-filter"></i> Extrair Insights';
+                if (nlpLegend) nlpLegend.style.display = 'none';
+                profileText.innerHTML = originalContent;
+            }
+        });
+    }
+
+    // 3. Dark Mode / Light Mode Logic
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
@@ -9,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.documentElement.setAttribute('data-theme', newTheme);
             
-            // O botão mostra o que vai acontecer no PRÓXIMO clique.
             if (newTheme === 'dark') {
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                 themeToggle.title = 'Mudar para modo claro';
@@ -20,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Acordeão da Experiência Profissional
+    // 4. Acordeão da Timeline
     const expTriggers = document.querySelectorAll('.exp-header, .timeline-dot');
     expTriggers.forEach(trigger => {
         trigger.addEventListener('click', () => {
@@ -34,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Nova Sticky Bar Horizontal (Contatos e CV)
+    // 5. Sticky Bar Horizontal
     const toggleBarBtn = document.getElementById('toggle-bar-btn');
     const stickyBar = document.getElementById('sticky-bar');
 
@@ -44,18 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const icon = toggleBarBtn.querySelector('i');
             
             if (stickyBar.classList.contains('minimized')) {
-                // Se está minimizado, a seta aponta para a esquerda para "abrir"
                 icon.className = 'fas fa-chevron-left';
                 toggleBarBtn.title = 'Expandir contatos';
             } else {
-                // Se está aberto, a seta aponta para a direita para "recolher"
                 icon.className = 'fas fa-chevron-right';
                 toggleBarBtn.title = 'Minimizar contatos';
             }
         });
     }
 
-    // 4. Efeito de carregamento em cascata dos Cards
+    // 6. Efeito de entrada em cascata dos Cards
     const cards = document.querySelectorAll('.card');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
